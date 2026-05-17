@@ -1,0 +1,284 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "annotations": { "list": [] },
+  "editable": false,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "yellow", "value": 1 },
+              { "color": "green", "value": 7 }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "range",
+              "options": {
+                "from": 0, "to": 0.99,
+                "result": { "text": "LOW", "color": "red" }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": 1, "to": 6.99,
+                "result": { "text": "MEDIUM", "color": "yellow" }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": 7, "to": 29.99,
+                "result": { "text": "HIGH", "color": "blue" }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": 30, "to": 999,
+                "result": { "text": "ELITE", "color": "green" }
+              }
+            }
+          ]
+        }
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "reduceOptions": { "calcs": ["sum"] },
+        "colorMode": "background",
+        "textMode": "auto",
+        "orientation": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "sum(increase(github_actions_workflow_run_total{conclusion='success'}[30d]))",
+          "legendFormat": "Deployments — 30d"
+        }
+      ],
+      "title": "Deployment Frequency — 30d",
+      "description": "Total successful deployments in 30 days. Elite=30+/month, High=7-29, Medium=1-6, Low=less than 1",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "s",
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "yellow", "value": 3600 },
+              { "color": "orange", "value": 86400 },
+              { "color": "red", "value": 604800 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "options": {
+        "reduceOptions": { "calcs": ["mean"] },
+        "colorMode": "background"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "avg(github_actions_workflow_run_duration_seconds{conclusion='success'})",
+          "legendFormat": "Avg Lead Time"
+        }
+      ],
+      "title": "Lead Time for Changes",
+      "description": "Average time from commit to successful deployment. Elite=under 1hr, High=1day, Medium=1week, Low=1month+",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "percentunit",
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "yellow", "value": 0.05 },
+              { "color": "orange", "value": 0.10 },
+              { "color": "red", "value": 0.15 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "background"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "sum(increase(github_actions_workflow_run_total{conclusion='failure'}[7d])) / sum(increase(github_actions_workflow_run_total[7d]))",
+          "legendFormat": "Change Failure Rate"
+        }
+      ],
+      "title": "Change Failure Rate — 7d",
+      "description": "Percentage of deployments that caused failures. Elite=0-5%, High=5-10%, Medium=10-15%, Low=15%+",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "s",
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "yellow", "value": 3600 },
+              { "color": "orange", "value": 86400 },
+              { "color": "red", "value": 604800 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "options": {
+        "reduceOptions": { "calcs": ["mean"] },
+        "colorMode": "background"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "avg(github_actions_workflow_run_duration_seconds{conclusion='failure'})",
+          "legendFormat": "Avg MTTR"
+        }
+      ],
+      "title": "Mean Time to Restore",
+      "description": "Average time to recover from a failed deployment. Elite=under 1hr, High=1day, Medium=1week, Low=1month+",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 }
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 5 },
+      "id": 5,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "increase(github_actions_workflow_run_total{conclusion='success'}[1d])",
+          "legendFormat": "Successful Deployments"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "increase(github_actions_workflow_run_total{conclusion='failure'}[1d])",
+          "legendFormat": "Failed Deployments"
+        }
+      ],
+      "title": "Deployment Frequency Over Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "percentunit"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 5 },
+      "id": 6,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "sum(increase(github_actions_workflow_run_total{conclusion='failure'}[1d])) / sum(increase(github_actions_workflow_run_total[1d]))",
+          "legendFormat": "Daily Change Failure Rate"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "vector(0.05)",
+          "legendFormat": "SLO Threshold — 5%"
+        }
+      ],
+      "title": "Change Failure Rate Over Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "s"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 13 },
+      "id": 7,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "github_actions_workflow_run_duration_seconds{conclusion='success'}",
+          "legendFormat": "Lead Time — {{workflow}}"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "vector(3600)",
+          "legendFormat": "Elite Threshold — 1hr"
+        }
+      ],
+      "title": "Lead Time for Changes Over Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "s"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 13 },
+      "id": 8,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "github_actions_workflow_run_duration_seconds{conclusion='failure'}",
+          "legendFormat": "MTTR — {{workflow}}"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "vector(3600)",
+          "legendFormat": "Elite Threshold — 1hr"
+        }
+      ],
+      "title": "Mean Time to Restore Over Time",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "60s",
+  "schemaVersion": 38,
+  "tags": ["dora", "cicd", "github-actions"],
+  "time": { "from": "now-30d", "to": "now" },
+  "timezone": "browser",
+  "title": "DORA Metrics",
+  "uid": "dora-metrics",
+  "version": 1
+}

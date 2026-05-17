@@ -1,0 +1,168 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "annotations": { "list": [] },
+  "editable": false,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "percent"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "tooltip": { "mode": "multi" } },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
+          "legendFormat": "CPU Usage %"
+        }
+      ],
+      "title": "CPU Usage %",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "percent"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "id": 2,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100",
+          "legendFormat": "Memory Usage %"
+        }
+      ],
+      "title": "Memory Usage %",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "bytes"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "id": 3,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "rate(node_disk_read_bytes_total[5m])",
+          "legendFormat": "Disk Read"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "rate(node_disk_written_bytes_total[5m])",
+          "legendFormat": "Disk Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "bytes"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "id": 4,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "rate(node_network_receive_bytes_total{device!='lo'}[5m])",
+          "legendFormat": "Network In"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "rate(node_network_transmit_bytes_total{device!='lo'}[5m])",
+          "legendFormat": "Network Out"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 }
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "id": 5,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "node_load1",
+          "legendFormat": "Load 1m"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "node_load5",
+          "legendFormat": "Load 5m"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "node_load15",
+          "legendFormat": "Load 15m"
+        }
+      ],
+      "title": "System Load Average",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "percent"
+        }
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "id": 6,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "(1 - (node_filesystem_avail_bytes{fstype!='tmpfs'} / node_filesystem_size_bytes{fstype!='tmpfs'})) * 100",
+          "legendFormat": "Disk Usage % - {{mountpoint}}"
+        }
+      ],
+      "title": "Disk Usage %",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "tags": ["node-exporter", "infrastructure"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Node Exporter — System Health",
+  "uid": "node-exporter",
+  "version": 1
+}

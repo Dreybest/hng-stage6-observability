@@ -1,0 +1,213 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "annotations": { "list": [] },
+  "editable": false,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "green", "value": 1 }
+            ]
+          },
+          "mappings": [
+            { "options": { "0": { "text": "DOWN" }, "1": { "text": "UP" } }, "type": "value" }
+          ]
+        }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto", "colorMode": "background" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_success{job='blackbox-exporter'}",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "title": "Probe Status — UP or DOWN",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "percentunit",
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "yellow", "value": 0.95 },
+              { "color": "green", "value": 0.99 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "options": { "reduceOptions": { "calcs": ["mean"] }, "colorMode": "background" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[24h])",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "title": "Probe Success Rate — 24h",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "s",
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "yellow", "value": 0.5 },
+              { "color": "red", "value": 1 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_duration_seconds{job='blackbox-exporter'}",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "title": "Current Response Time",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "s",
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "yellow", "value": 7 },
+              { "color": "green", "value": 30 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_ssl_earliest_cert_expiry{job='blackbox-exporter'} - time()",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "title": "SSL Certificate Expiry",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "s"
+        }
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 4 },
+      "id": 5,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_duration_seconds{job='blackbox-exporter'}",
+          "legendFormat": "Response Time — {{instance}}"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_http_duration_seconds{job='blackbox-exporter', phase='connect'}",
+          "legendFormat": "Connect Time — {{instance}}"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_http_duration_seconds{job='blackbox-exporter', phase='processing'}",
+          "legendFormat": "Processing Time — {{instance}}"
+        }
+      ],
+      "title": "HTTP Response Time Breakdown",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 20
+          },
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "green", "value": 1 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 12 },
+      "id": 6,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_success{job='blackbox-exporter'}",
+          "legendFormat": "{{instance}} — 1=UP 0=DOWN"
+        }
+      ],
+      "title": "Uptime Timeline — 1=UP 0=DOWN",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "s"
+        }
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 20 },
+      "id": 7,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "probe_ssl_earliest_cert_expiry{job='blackbox-exporter'} - time()",
+          "legendFormat": "SSL Expiry Countdown — {{instance}}"
+        }
+      ],
+      "title": "SSL Certificate Expiry Countdown",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "60s",
+  "schemaVersion": 38,
+  "tags": ["blackbox", "uptime", "ssl"],
+  "time": { "from": "now-24h", "to": "now" },
+  "timezone": "browser",
+  "title": "Blackbox Exporter — Uptime & SSL",
+  "uid": "blackbox",
+  "version": 1
+}
