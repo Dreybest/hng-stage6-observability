@@ -1,0 +1,62 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# ── Link to alert rules ──────────────────────────────────
+rule_files:
+  - /etc/prometheus/rules/*.yml
+
+# ── Send alerts to Alertmanager ─────────────────────────
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# ── What Prometheus scrapes ──────────────────────────────
+scrape_configs:
+
+  # Prometheus monitors itself
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - localhost:9090
+
+  # System metrics — CPU, RAM, Disk, Network
+  - job_name: node-exporter
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - node-exporter:9100
+
+  # Uptime & HTTP checks
+  - job_name: blackbox-exporter
+    metrics_path: /probe
+    params:
+      module:
+        - http_2xx
+    static_configs:
+      - targets:
+          - https://google.com
+          - http://ec2-3-84-114-138.compute-1.amazonaws.com:3000
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+  # Alertmanager
+  - job_name: alertmanager
+    static_configs:
+      - targets:
+          - alertmanager:9093
+
+  # Grafana
+  - job_name: grafana
+    static_configs:
+      - targets:
+          - grafana:3000

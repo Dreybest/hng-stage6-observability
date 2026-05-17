@@ -1,0 +1,132 @@
+groups:
+
+  # ── Infrastructure Alerts ────────────────────────────────
+  - name: infrastructure
+    rules:
+
+      # Server completely unreachable
+      - alert: ServerDown
+        expr: probe_success{job="blackbox-exporter"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Server {{ $labels.instance }} is down"
+          description: "Blackbox probe has failed for more than 2 consecutive minutes. The server is unreachable."
+          value: "{{ $value }}"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/blackbox/blackbox-exporter"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/server-down.md"
+
+      # CPU warning
+      - alert: CPUHighWarning
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage has been above 80% for more than 5 minutes."
+          value: "{{ $value | printf \"%.2f\" }}%"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/cpu-high.md"
+
+      # CPU critical
+      - alert: CPUHighCritical
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical CPU usage on {{ $labels.instance }}"
+          description: "CPU usage has been above 90% for more than 10 minutes. Immediate action required."
+          value: "{{ $value | printf \"%.2f\" }}%"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/cpu-high.md"
+
+      # Memory warning
+      - alert: MemoryHighWarning
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage has been above 80% for more than 5 minutes."
+          value: "{{ $value | printf \"%.2f\" }}%"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/memory-high.md"
+
+      # Memory critical
+      - alert: MemoryHighCritical
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical memory usage on {{ $labels.instance }}"
+          description: "Memory usage has been above 90% for more than 5 minutes. Immediate action required."
+          value: "{{ $value | printf \"%.2f\" }}%"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/memory-high.md"
+
+      # Disk warning
+      - alert: DiskHighWarning
+        expr: (1 - (node_filesystem_avail_bytes{fstype!="tmpfs"} / node_filesystem_size_bytes{fstype!="tmpfs"})) * 100 > 75
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage on {{ $labels.instance }}"
+          description: "Disk usage has exceeded 75% on {{ $labels.mountpoint }}."
+          value: "{{ $value | printf \"%.2f\" }}%"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/disk-high.md"
+
+      # Disk critical
+      - alert: DiskHighCritical
+        expr: (1 - (node_filesystem_avail_bytes{fstype!="tmpfs"} / node_filesystem_size_bytes{fstype!="tmpfs"})) * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical disk usage on {{ $labels.instance }}"
+          description: "Disk usage has exceeded 90% on {{ $labels.mountpoint }}. Immediate action required."
+          value: "{{ $value | printf \"%.2f\" }}%"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/disk-high.md"
+
+  # ── SLO Burn Rate Alerts ─────────────────────────────────
+  - name: slo-burn-rate
+    rules:
+
+      # Fast burn — uses 2% of monthly budget in 1 hour
+      - alert: SLOFastBurn
+        expr: |
+          (
+            sum(rate(probe_success{job="blackbox-exporter"}[1h])) /
+            count(probe_success{job="blackbox-exporter"})
+          ) < 0.995
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "SLO Fast Burn — error budget burning too fast"
+          description: "Availability has dropped below 99.5% in the last hour. At this rate the monthly error budget will be exhausted in less than 2 days."
+          value: "{{ $value | printf \"%.4f\" }}"
+          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/slo/slo-error-budget"
+          runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/slo-burn-rate.md"
+
+      # Slow burn — uses 5% of monthly budget in 6 hours
+      - alert: SLOSlowBurn
+        expr: |
+          (
+            sum(rate(probe_success{job="blackbox-exporter"}[6h])) /
+            count(probe_success{job="blackbox-exporter"})
+          ) < 0.995
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "SLO Slow Burn — error budget being consumed"
+          description: "Availability has been below 99.5% over the last 6 hours. Monitor closely before it becomes critical."
+          value: "{{ $value | printf \"%.4f\" }}"

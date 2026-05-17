@@ -1,0 +1,73 @@
+receivers:
+  # Receives traces and logs from your application
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  # Collects logs from the system journal
+  filelog:
+    include:
+      - /var/log/*.log
+    start_at: beginning
+
+processors:
+  # Cleans up and batches data before sending
+  batch:
+    timeout: 5s
+    send_batch_size: 1000
+
+  # Adds extra labels to everything
+  resource:
+    attributes:
+      - key: service.name
+        value: "hng-stage6"
+        action: upsert
+      - key: environment
+        value: "production"
+        action: upsert
+
+exporters:
+  # Sends logs to Loki
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+    default_labels_enabled:
+      exporter: true
+      job: true
+
+  # Sends traces to Tempo
+  otlp/tempo:
+    endpoint: http://tempo:3200/otlp
+    tls:
+      insecure: true
+
+  # Logs everything to console for debugging
+  logging:
+    verbosity: basic
+
+service:
+  pipelines:
+    # Log pipeline — app logs → OTel → Loki
+    logs:
+      receivers:
+        - otlp
+        - filelog
+      processors:
+        - resource
+        - batch
+      exporters:
+        - loki
+        - logging
+
+    # Trace pipeline — app traces → OTel → Tempo
+    traces:
+      receivers:
+        - otlp
+      processors:
+        - resource
+        - batch
+      exporters:
+        - otlp/tempo
+        - logging
