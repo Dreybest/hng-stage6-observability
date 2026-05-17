@@ -53,7 +53,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus" },
-          "expr": "100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
+          "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
           "legendFormat": "CPU %"
         }
       ],
@@ -220,7 +220,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus" },
-          "expr": "100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
+          "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
           "legendFormat": "CPU %"
         },
         {
