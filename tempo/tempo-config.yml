@@ -1,7 +1,6 @@
 server:
   http_listen_port: 3200
 
-# ── How Tempo receives traces ────────────────────────────
 distributor:
   receivers:
     otlp:
@@ -11,32 +10,21 @@ distributor:
         http:
           endpoint: 0.0.0.0:4318
 
-# ── How traces are processed ─────────────────────────────
-ingester:
-  max_block_duration: 5m
-
-# ── Where traces are stored ──────────────────────────────
 storage:
   trace:
     backend: local
     local:
-      path: /tmp/tempo/blocks
+      path: /var/tempo/blocks
     wal:
-      path: /tmp/tempo/wal
+      path: /var/tempo/wal
 
-# ── How long traces are kept ─────────────────────────────
-compactor:
-  compaction:
-    block_retention: 1h
-
-# ── Trace search settings ────────────────────────────────
 metrics_generator:
   registry:
     external_labels:
       source: tempo
       cluster: docker-compose
   storage:
-    path: /tmp/tempo/generator/wal
+    path: /var/tempo/generator/wal
     remote_write:
       - url: http://prometheus:9090/api/v1/write
         send_exemplars: true

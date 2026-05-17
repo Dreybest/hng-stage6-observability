@@ -6,6 +6,8 @@ server:
 
 # ── How Loki receives logs ───────────────────────────────
 ingester:
+  wal:
+    dir: /loki/wal
   lifecycler:
     address: 127.0.0.1
     ring:

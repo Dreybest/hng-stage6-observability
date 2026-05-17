@@ -52,7 +52,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./tempo/tempo-config.yml:/etc/tempo/tempo-config.yml
-      - tempo_data:/tmp/tempo
+      - tempo_data:/var/tempo
     command: -config.file=/etc/tempo/tempo-config.yml
     ports:
       - "3200:3200"
