@@ -1,0 +1,255 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "annotations": { "list": [] },
+  "editable": false,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "yellow", "value": 0.99 },
+              { "color": "green", "value": 0.995 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[30d])",
+          "legendFormat": "Availability SLI"
+        }
+      ],
+      "title": "Availability SLI — 30d",
+      "type": "gauge"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "yellow", "value": 0.99 },
+              { "color": "green", "value": 0.995 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[7d])",
+          "legendFormat": "Availability SLI 7d"
+        }
+      ],
+      "title": "Availability SLI — 7d",
+      "type": "gauge"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "percentunit",
+          "min": 0,
+          "max": 0.005,
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "yellow", "value": 0.0025 },
+              { "color": "red", "value": 0.005 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "background",
+        "orientation": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[30d]))",
+          "legendFormat": "Error Budget Used"
+        }
+      ],
+      "title": "Error Budget Consumed — 30d",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "thresholds": {
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "yellow", "value": 0.25 },
+              { "color": "green", "value": 0.5 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "background",
+        "orientation": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "1 - ((0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[30d]))) / 0.005)",
+          "legendFormat": "Budget Remaining"
+        }
+      ],
+      "title": "Error Budget Remaining — 30d",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "percentunit"
+        }
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 6 },
+      "id": 5,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[1h])",
+          "legendFormat": "Availability — 1h window"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[6h])",
+          "legendFormat": "Availability — 6h window"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "vector(0.995)",
+          "legendFormat": "SLO Target — 99.5%"
+        }
+      ],
+      "title": "Availability vs SLO Target",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "custom": { "lineWidth": 2, "fillOpacity": 20 },
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "yellow", "value": 5 },
+              { "color": "red", "value": 14.4 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 14 },
+      "id": 6,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "(1 - avg_over_time(probe_success{job='blackbox-exporter'}[1h])) / (1 - 0.995)",
+          "legendFormat": "Fast Burn Rate — 1h"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "(1 - avg_over_time(probe_success{job='blackbox-exporter'}[6h])) / (1 - 0.995)",
+          "legendFormat": "Slow Burn Rate — 6h"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "vector(14.4)",
+          "legendFormat": "Fast Burn Threshold"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "vector(5)",
+          "legendFormat": "Slow Burn Threshold"
+        }
+      ],
+      "title": "Error Budget Burn Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "unit": "percentunit"
+        }
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 22 },
+      "id": 7,
+      "targets": [
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "1 - ((0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[30d]))) / 0.005)",
+          "legendFormat": "Error Budget Remaining — 30d"
+        },
+        {
+          "datasource": { "type": "prometheus" },
+          "expr": "1 - ((0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[7d]))) / 0.005)",
+          "legendFormat": "Error Budget Remaining — 7d"
+        }
+      ],
+      "title": "Error Budget Remaining Over Time",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "60s",
+  "schemaVersion": 38,
+  "tags": ["slo", "error-budget", "reliability"],
+  "time": { "from": "now-30d", "to": "now" },
+  "timezone": "browser",
+  "title": "SLO & Error Budget",
+  "uid": "slo-error-budget",
+  "version": 1
+}
