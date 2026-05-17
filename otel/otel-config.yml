@@ -1,3 +1,5 @@
+file_format: "0.3"
+
 receivers:
   # Receives traces and logs from your application
   otlp:

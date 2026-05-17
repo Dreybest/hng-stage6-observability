@@ -8,7 +8,7 @@ Disk usage on the server has exceeded the threshold.
 | DiskHighWarning | Above 75% | 5+ minutes |
 | DiskHighCritical | Above 90% | 5+ minutes |
 
-**Dashboard:** [Node Exporter](http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node-exporter)  
+**Dashboard:** [Node Exporter](http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node-exporter)  
 **Runbook:** This file  
 
 ---

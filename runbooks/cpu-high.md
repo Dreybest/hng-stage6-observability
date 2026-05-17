@@ -8,7 +8,7 @@ CPU usage on the server has exceeded the threshold for a sustained period.
 | CPUHighWarning | Above 80% | 5+ minutes |
 | CPUHighCritical | Above 90% | 10+ minutes |
 
-**Dashboard:** [Node Exporter](http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node-exporter)  
+**Dashboard:** [Node Exporter](http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node-exporter)  
 **Runbook:** This file  
 
 ---

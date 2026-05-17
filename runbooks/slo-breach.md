@@ -12,7 +12,7 @@ before the budget runs out.
 | Latency | 95% of requests under 500ms | 30 days rolling |
 | Error Rate | 99% of requests succeed | 30 days rolling |
 
-**Dashboard:** [SLO & Error Budget](http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/slo-error-budget)  
+**Dashboard:** [SLO & Error Budget](http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/slo-error-budget)  
 **Runbook:** This file
 
 ---
@@ -30,7 +30,7 @@ before the budget runs out.
 
 ### Step 1 — Confirm the breach on the dashboard
 Open the SLO & Error Budget dashboard:
-http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/slo-error-budget
+http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/slo-error-budget
 Confirm:
 - Error Budget Remaining shows 0% or negative
 - Which SLO was breached — availability, latency, or error rate?

@@ -6,7 +6,7 @@ minutes. The server is completely unreachable from the monitoring stack.
 
 **Severity:** Critical  
 **Alert name:** ServerDown  
-**Dashboard:** [Blackbox Exporter](http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/blackbox)  
+**Dashboard:** [Blackbox Exporter](http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/blackbox)  
 **Fires when:** `probe_success == 0` for 2+ minutes  
 
 ---

@@ -14,7 +14,7 @@ groups:
           summary: "Server {{ $labels.instance }} is down"
           description: "Blackbox probe has failed for more than 2 consecutive minutes. The server is unreachable."
           value: "{{ $value }}"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/blackbox/blackbox-exporter"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/blackbox/blackbox-exporter"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/server-down.md"
 
       # CPU warning
@@ -27,7 +27,7 @@ groups:
           summary: "High CPU usage on {{ $labels.instance }}"
           description: "CPU usage has been above 80% for more than 5 minutes."
           value: "{{ $value | printf \"%.2f\" }}%"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node/node-exporter"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/cpu-high.md"
 
       # CPU critical
@@ -40,7 +40,7 @@ groups:
           summary: "Critical CPU usage on {{ $labels.instance }}"
           description: "CPU usage has been above 90% for more than 10 minutes. Immediate action required."
           value: "{{ $value | printf \"%.2f\" }}%"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node/node-exporter"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/cpu-high.md"
 
       # Memory warning
@@ -53,7 +53,7 @@ groups:
           summary: "High memory usage on {{ $labels.instance }}"
           description: "Memory usage has been above 80% for more than 5 minutes."
           value: "{{ $value | printf \"%.2f\" }}%"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node/node-exporter"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/memory-high.md"
 
       # Memory critical
@@ -66,7 +66,7 @@ groups:
           summary: "Critical memory usage on {{ $labels.instance }}"
           description: "Memory usage has been above 90% for more than 5 minutes. Immediate action required."
           value: "{{ $value | printf \"%.2f\" }}%"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node/node-exporter"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/memory-high.md"
 
       # Disk warning
@@ -79,7 +79,7 @@ groups:
           summary: "High disk usage on {{ $labels.instance }}"
           description: "Disk usage has exceeded 75% on {{ $labels.mountpoint }}."
           value: "{{ $value | printf \"%.2f\" }}%"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node/node-exporter"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/disk-high.md"
 
       # Disk critical
@@ -92,7 +92,7 @@ groups:
           summary: "Critical disk usage on {{ $labels.instance }}"
           description: "Disk usage has exceeded 90% on {{ $labels.mountpoint }}. Immediate action required."
           value: "{{ $value | printf \"%.2f\" }}%"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/node/node-exporter"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/node/node-exporter"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/disk-high.md"
 
   # ── SLO Burn Rate Alerts ─────────────────────────────────
@@ -113,7 +113,7 @@ groups:
           summary: "SLO Fast Burn — error budget burning too fast"
           description: "Availability has dropped below 99.5% in the last hour. At this rate the monthly error budget will be exhausted in less than 2 days."
           value: "{{ $value | printf \"%.4f\" }}"
-          dashboard_url: "http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/slo/slo-error-budget"
+          dashboard_url: "http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/slo/slo-error-budget"
           runbook_url: "https://github.com/Dreybest/hng-stage6-observability/blob/main/runbooks/slo-burn-rate.md"
 
       # Slow burn — uses 5% of monthly budget in 6 hours

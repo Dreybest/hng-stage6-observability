@@ -8,7 +8,7 @@ or required a hotfix. This breaches the DORA Change Failure Rate SLO.
 |---|---|---|
 | Change Failure Rate | Below 5% | Above 5% over 7 days |
 
-**Dashboard:** [DORA Metrics](http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/dora-metrics)  
+**Dashboard:** [DORA Metrics](http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/dora-metrics)  
 **Runbook:** This file
 
 ---
@@ -27,7 +27,7 @@ or required a hotfix. This breaches the DORA Change Failure Rate SLO.
 
 ### Step 1 — Check the DORA dashboard
 Open the DORA Metrics dashboard:
-http://ec2-3-84-114-138.compute-1.amazonaws.com:3000/d/dora-metrics
+http://ec2-54-226-46-2.compute-1.amazonaws.com:3000/d/dora-metrics
 Look at:
 - Current CFR percentage — how far above 5% is it?
 - Change Failure Rate Over Time graph — when did it start rising?
