@@ -40,16 +40,23 @@ The entire LGTM stack will be running within 2 minutes.
 ---
 
 ## Architecture
-App Server                          Monitoring Server
-──────────────────                  ──────────────────────────────
-Your Application  ──── metrics ───► Prometheus
-Node Exporter     ──── scrape  ───► Prometheus
-OTel Collector    ──── logs    ───► Loki
-OTel Collector    ──── traces  ───► Tempo
-GitHub Actions    ──── metrics ───► Prometheus
-Grafana ◄── all datasources
-Alertmanager ──► Slack
-Blackbox Exporter ◄── probes ────── Monitoring Server
+
+```
+┌─────────────────────────┐         ┌──────────────────────────────┐
+│      APP SERVER         │         │     MONITORING SERVER        │
+│                         │         │                              │
+│  Your Application  ─────┼─metrics─►  Prometheus                 │
+│  Node Exporter     ─────┼─scrape──►  Prometheus                 │
+│  OTel Collector    ─────┼─logs────►  Loki                       │
+│  OTel Collector    ─────┼─traces──►  Tempo                      │
+│  GitHub Actions    ─────┼─metrics─►  Prometheus                 │
+│                         │         │                              │
+│                         │◄─probes─┼─  Blackbox Exporter         │
+└─────────────────────────┘         │                              │
+                                    │  Grafana ◄── all sources     │
+                                    │  Alertmanager ──► Slack      │
+                                    └──────────────────────────────┘
+```
 
 ---
 
@@ -232,11 +239,14 @@ triggerable from the Actions tab without needing SSH access.
 ---
 
 ## Repository structure
+
+```
 hng-stage6-observability/
 ├── docker-compose.yml
 ├── .env                          # Not committed — holds secrets
 ├── .gitignore
 ├── README.md
+├── pir.md
 ├── prometheus/
 │   └── prometheus.yml
 ├── loki/
@@ -262,13 +272,14 @@ hng-stage6-observability/
 │       └── dashboards/
 │           └── dashboards.yml
 └── runbooks/
-├── server-down.md
-├── cpu-high.md
-├── memory-high.md
-├── disk-high.md
-├── slo-burn-rate.md
-├── high-cfr.md
-└── slo-breach.md
+    ├── server-down.md
+    ├── cpu-high.md
+    ├── memory-high.md
+    ├── disk-high.md
+    ├── slo-burn-rate.md
+    ├── high-cfr.md
+    └── slo-breach.md
+```
 
 ---
 
