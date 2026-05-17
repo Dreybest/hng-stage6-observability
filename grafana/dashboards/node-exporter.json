@@ -23,7 +23,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus" },
-          "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
+          "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
           "legendFormat": "CPU Usage %"
         }
       ],
