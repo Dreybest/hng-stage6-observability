@@ -8,7 +8,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -28,7 +28,7 @@
       "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto", "colorMode": "background" },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_success{job='blackbox-exporter'}",
           "legendFormat": "{{instance}}"
         }
@@ -37,7 +37,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -56,7 +56,7 @@
       "options": { "reduceOptions": { "calcs": ["mean"] }, "colorMode": "background" },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[24h])",
           "legendFormat": "{{instance}}"
         }
@@ -65,7 +65,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -84,7 +84,7 @@
       "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_duration_seconds{job='blackbox-exporter'}",
           "legendFormat": "{{instance}}"
         }
@@ -93,7 +93,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -112,7 +112,7 @@
       "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_ssl_earliest_cert_expiry{job='blackbox-exporter'} - time()",
           "legendFormat": "{{instance}}"
         }
@@ -121,7 +121,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -133,17 +133,17 @@
       "id": 5,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_duration_seconds{job='blackbox-exporter'}",
           "legendFormat": "Response Time — {{instance}}"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_http_duration_seconds{job='blackbox-exporter', phase='connect'}",
           "legendFormat": "Connect Time — {{instance}}"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_http_duration_seconds{job='blackbox-exporter', phase='processing'}",
           "legendFormat": "Processing Time — {{instance}}"
         }
@@ -152,7 +152,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -172,7 +172,7 @@
       "id": 6,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_success{job='blackbox-exporter'}",
           "legendFormat": "{{instance}} — 1=UP 0=DOWN"
         }
@@ -181,7 +181,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -193,7 +193,7 @@
       "id": 7,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_ssl_earliest_cert_expiry{job='blackbox-exporter'} - time()",
           "legendFormat": "SSL Expiry Countdown — {{instance}}"
         }

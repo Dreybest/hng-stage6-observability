@@ -8,7 +8,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -61,7 +61,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "sum(increase(github_actions_workflow_run_total{conclusion='success'}[30d]))",
           "legendFormat": "Deployments — 30d"
         }
@@ -71,7 +71,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -94,7 +94,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg(github_actions_workflow_run_duration_seconds{conclusion='success'})",
           "legendFormat": "Avg Lead Time"
         }
@@ -104,7 +104,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -127,7 +127,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "sum(increase(github_actions_workflow_run_total{conclusion='failure'}[7d])) / sum(increase(github_actions_workflow_run_total[7d]))",
           "legendFormat": "Change Failure Rate"
         }
@@ -137,7 +137,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -160,7 +160,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg(github_actions_workflow_run_duration_seconds{conclusion='failure'})",
           "legendFormat": "Avg MTTR"
         }
@@ -170,7 +170,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -181,12 +181,12 @@
       "id": 5,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "increase(github_actions_workflow_run_total{conclusion='success'}[1d])",
           "legendFormat": "Successful Deployments"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "increase(github_actions_workflow_run_total{conclusion='failure'}[1d])",
           "legendFormat": "Failed Deployments"
         }
@@ -195,7 +195,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -207,12 +207,12 @@
       "id": 6,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "sum(increase(github_actions_workflow_run_total{conclusion='failure'}[1d])) / sum(increase(github_actions_workflow_run_total[1d]))",
           "legendFormat": "Daily Change Failure Rate"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "vector(0.05)",
           "legendFormat": "SLO Threshold — 5%"
         }
@@ -221,7 +221,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -233,12 +233,12 @@
       "id": 7,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "github_actions_workflow_run_duration_seconds{conclusion='success'}",
           "legendFormat": "Lead Time — {{workflow}}"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "vector(3600)",
           "legendFormat": "Elite Threshold — 1hr"
         }
@@ -247,7 +247,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -259,12 +259,12 @@
       "id": 8,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "github_actions_workflow_run_duration_seconds{conclusion='failure'}",
           "legendFormat": "MTTR — {{workflow}}"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "vector(3600)",
           "legendFormat": "Elite Threshold — 1hr"
         }

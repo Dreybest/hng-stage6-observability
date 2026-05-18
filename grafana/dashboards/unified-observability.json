@@ -33,7 +33,7 @@
   ],
   "panels": [
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -52,7 +52,7 @@
       "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
           "legendFormat": "CPU %"
         }
@@ -61,7 +61,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -80,7 +80,7 @@
       "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100",
           "legendFormat": "Memory %"
         }
@@ -89,7 +89,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -115,7 +115,7 @@
       "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_success{job='blackbox-exporter'}",
           "legendFormat": "{{instance}}"
         }
@@ -124,7 +124,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -143,7 +143,7 @@
       "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[30d])",
           "legendFormat": "Availability"
         }
@@ -152,7 +152,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -171,7 +171,7 @@
       "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_duration_seconds{job='blackbox-exporter'}",
           "legendFormat": "Response Time"
         }
@@ -180,7 +180,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -198,7 +198,7 @@
       "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "(1 - avg_over_time(probe_success{job='blackbox-exporter'}[1h])) / (1 - 0.995)",
           "legendFormat": "Burn Rate"
         }
@@ -207,7 +207,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -219,12 +219,12 @@
       "id": 7,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
           "legendFormat": "CPU %"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100",
           "legendFormat": "Memory %"
         }
@@ -233,7 +233,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -245,12 +245,12 @@
       "id": 8,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "probe_duration_seconds{job='blackbox-exporter'}",
           "legendFormat": "Response Time — {{instance}}"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "vector(0.5)",
           "legendFormat": "SLO Threshold — 500ms"
         }
@@ -259,7 +259,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "loki" },
+      "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
       "fieldConfig": { "defaults": {} },
       "gridPos": { "h": 10, "w": 24, "x": 0, "y": 12 },
       "id": 9,
@@ -275,7 +275,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "loki" },
+          "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
           "expr": "{job=\"hng-stage6\"}",
           "legendFormat": "",
           "queryType": "range"

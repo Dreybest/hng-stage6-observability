@@ -8,7 +8,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -34,7 +34,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[30d])",
           "legendFormat": "Availability SLI"
         }
@@ -43,7 +43,7 @@
       "type": "gauge"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -68,7 +68,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[7d])",
           "legendFormat": "Availability SLI 7d"
         }
@@ -77,7 +77,7 @@
       "type": "gauge"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -102,7 +102,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[30d]))",
           "legendFormat": "Error Budget Used"
         }
@@ -111,7 +111,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -136,7 +136,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "1 - ((0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[30d]))) / 0.005)",
           "legendFormat": "Budget Remaining"
         }
@@ -145,7 +145,7 @@
       "type": "stat"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -157,17 +157,17 @@
       "id": 5,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[1h])",
           "legendFormat": "Availability — 1h window"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "avg_over_time(probe_success{job='blackbox-exporter'}[6h])",
           "legendFormat": "Availability — 6h window"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "vector(0.995)",
           "legendFormat": "SLO Target — 99.5%"
         }
@@ -176,7 +176,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
@@ -194,22 +194,22 @@
       "id": 6,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "(1 - avg_over_time(probe_success{job='blackbox-exporter'}[1h])) / (1 - 0.995)",
           "legendFormat": "Fast Burn Rate — 1h"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "(1 - avg_over_time(probe_success{job='blackbox-exporter'}[6h])) / (1 - 0.995)",
           "legendFormat": "Slow Burn Rate — 6h"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "vector(14.4)",
           "legendFormat": "Fast Burn Threshold"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "vector(5)",
           "legendFormat": "Slow Burn Threshold"
         }
@@ -218,7 +218,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus" },
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
@@ -230,12 +230,12 @@
       "id": 7,
       "targets": [
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "1 - ((0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[30d]))) / 0.005)",
           "legendFormat": "Error Budget Remaining — 30d"
         },
         {
-          "datasource": { "type": "prometheus" },
+          "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
           "expr": "1 - ((0.005 - (0.005 * avg_over_time(probe_success{job='blackbox-exporter'}[7d]))) / 0.005)",
           "legendFormat": "Error Budget Remaining — 7d"
         }
